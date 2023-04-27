@@ -1,0 +1,136 @@
+#ruleta {
+    width: 97%;
+    height: 0px;
+    padding-bottom: 97%;
+    border-radius: 50%;
+    background-color:rgb(241, 241, 241);
+
+    margin: 1.5%;
+    border: 2px solid rgba(0, 0, 0, 0.327);
+
+    transition: transform 10s ease-in-out;
+}
+
+.rotate{
+    transform: rotate(1800deg);
+}
+
+#base_ruleta{
+    width: 90%;
+    height: 0px;
+    padding-bottom: 90%;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, #1a2397, #ad5207);
+}
+#title{
+    color:white;
+    font-size: 4em;
+    font-family: open sans;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: inline-block;
+    font-weight: bold;
+}
+body{
+    background-image: url("../images/baner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+#card_ruleta{
+    background-color: #207ee9c4;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    color: white;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.877);
+}
+#card_ruleta .card-header h3{
+    font-size: 20px;
+    margin: -5px;
+    margin-top: -10px;
+}
+#card_ruleta #card_body{
+    background-color: rgb(255, 255, 255);
+
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#card_ruleta #controles{
+    background-color: white;
+
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+#card_ruleta #players{
+    background-color: white;
+
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color:black;
+}
+
+#spin_button{
+    background-color: #13e000;
+    border: #13e000;
+    width: 100%;
+    color:white;
+    font-weight: bold;
+    margin: 2px;
+    border-radius: 20px;
+}
+#delete_button{
+    background-color: #ff0000;
+    border: #ff0000;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    margin: 2px;
+    margin-top: 4px;
+    border-radius: 20px;
+}
+#lista{
+    list-style-type: none;
+    margin-left: -32px;
+    margin-top: -20px;
+}
+#lista li{
+    background-color: #b3f3ae;
+    margin: 1px;
+    margin-left: -16px;
+    margin-right: -16px;
+    cursor: pointer;
+}
+#lista li:hover{
+    background-color: #484d97;
+}
+
+#encabezado{
+    padding-bottom: 15px;
+}
+
+#ruleta{
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+    url("../images/logo.png");
+    background-size: cover;
+    background-position: center;
+    margin-top: 1.09%;
+    
+}
