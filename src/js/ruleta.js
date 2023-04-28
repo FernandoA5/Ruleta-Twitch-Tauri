@@ -11,10 +11,13 @@ window.addEventListener("DOMContentLoaded", function(){
         players.pop();
 
         dividir_ruleta(players);        
-        enlistar_players(players);
-
         anunciar_ganador(0);
     });
+
+    enlistar_players(players);
+    agregar_listeners();
+
+    
 });
 
 const button = document.getElementById("spin_button");
@@ -148,5 +151,22 @@ function dividir_ruleta(players){
 
 function enlistar_players(lista_players){
     let lista = document.getElementById("lista");
-    lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button"></li>`).join('');
+    lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button" class="drop-button"></li>`).join('');
+
 }
+function agregar_listeners(){
+    document.querySelector('#lista').addEventListener('click', function(event) {
+        if (event.target.classList.contains('drop-button')) {
+            let user = event.target.value;
+            console.log(user);
+            drop_user(user);
+        }
+    });
+}
+function drop_user(user){
+    invoke('drop_player', {player: user}).then((message) => {
+        console.log(message);
+    });
+}
+
+
