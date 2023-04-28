@@ -86,6 +86,10 @@ body{
     color:black;
 }
 
+
+
+
+
 #spin_button{
     background-color: #13e000;
     border: #13e000;
@@ -95,9 +99,29 @@ body{
     margin: 2px;
     border-radius: 20px;
 }
-#delete_button{
+#lista{
+    padding-top: 10px;
+}
+#lista li input{
+    background-color: #00a2ff00;
+    width: 100%;
+    border: none;
+    color: #00a2ff;
+}
+#lista li input:hover{
+    outline: none;
     background-color: #ff0000;
     border: #ff0000;
+    border-radius: 20px;
+    color: white;
+    
+
+}
+
+
+#clear_button{
+    background-color: #00a2ff;
+    border: #00a2ff;
     width: 100%;
     color: white;
     font-weight: bold;
@@ -105,20 +129,20 @@ body{
     margin-top: 4px;
     border-radius: 20px;
 }
+
+
+
 #lista{
     list-style-type: none;
     margin-left: -32px;
     margin-top: -20px;
 }
 #lista li{
-    background-color: #b3f3ae;
+    background-color: #ffffff;
     margin: 1px;
     margin-left: -16px;
     margin-right: -16px;
     cursor: pointer;
-}
-#lista li:hover{
-    background-color: #484d97;
 }
 
 #encabezado{

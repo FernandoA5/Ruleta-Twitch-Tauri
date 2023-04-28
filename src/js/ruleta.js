@@ -148,5 +148,5 @@ function dividir_ruleta(players){
 
 function enlistar_players(lista_players){
     let lista = document.getElementById("lista");
-    lista.innerHTML = lista_players.map(lista_players => `<li>${lista_players}</li>`).join('');
+    lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button"></li>`).join('');
 }
