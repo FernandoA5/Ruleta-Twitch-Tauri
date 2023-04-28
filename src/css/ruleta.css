@@ -10,7 +10,6 @@
 
     transition: transform 10s ease-in-out;
 }
-
 .rotate{
     transform: rotate(1800deg);
 }
@@ -134,3 +133,15 @@ body{
     margin-top: 1.09%;
     
 }
+
+#arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #ff1a00;
+    position: absolute;
+    top: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
