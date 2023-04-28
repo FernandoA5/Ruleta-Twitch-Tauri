@@ -1,7 +1,10 @@
 
 const invoke = window.__TAURI__.invoke
 let players = [];
+let last_players = [];
+let spinning = false;
 
+//-------------------------------------------------------COSAS DE LA VENTANA -----------------------------------------------------
 window.addEventListener("resize", function(){
     dividir_ruleta(players.length);
 });
@@ -11,7 +14,7 @@ window.addEventListener("DOMContentLoaded", function(){
         players.pop();
 
         dividir_ruleta(players);        
-        anunciar_ganador(0);
+        //anunciar_ganador(0);
     });
 
     enlistar_players(players);
@@ -20,8 +23,88 @@ window.addEventListener("DOMContentLoaded", function(){
     
 });
 
-const button = document.getElementById("spin_button");
+/*--------------------------------------------------BOTONES Y SUS EVENT-LISTENERS------------------------------------------------*/
+
+//OBTENEMOS LOS BOTONES CON SUS RESPECTIVOS IDS
+const spin_button = document.getElementById("spin_button");
 const ruleta = document.getElementById("ruleta");
+const clear_button = document.getElementById("clear_button");
+const add_button = document.getElementById("button_add");
+
+//LISTENER DEL BOTON PARA BORRAR USUARIOS
+clear_button.addEventListener("click", function(){
+    //VERIFICAMOS QUE NO ESTÉ GIRANDO LA RULETA
+
+    //LE PEDIMOS A RUST QUE BORRE LOS USUARIOS
+
+});
+
+//LISTENER DEL BOTON PARA AGREGAR USUARIOS MANUALMENTE
+add_button.addEventListener("click", function(){
+    //VERIFICAMOS QUE NO ESTÉ GIRANDO LA RULETA
+
+    //OBTENEMOS EL NOMBRE DEL USUARIO A AGREGAR
+
+    //LE PEDIMOS A RUST QUE AGREGUE EL USUARIO
+});
+
+//LISTENER DEL BOTON PARA ROTAR LA RULETA
+spin_button.addEventListener("click", function(){
+    //Obtener numero aleatorio entre 0 y 360
+    ruleta.style.transform = `rotate(${0}deg)`;
+    ruleta.style.transition = "transform 1ms ease-in-out";
+    ruleta.classList.toggle('rotate');
+
+    //console.log(ruleta.style)
+
+    setTimeout(function (){
+        //GENERAR ANGULO ALEATORIO
+        let randomAngle = Math.floor(Math.random() * 360);
+        //Añadirle 360 para que de una vuelta completa y Lo multiplicamos por la cantidad de vueltas que queremos que de
+        randomAngle += 360*50;
+
+        //RESETEAMOS LA ANIMACÓN
+        ruleta.style.transform = `rotate(${randomAngle}deg)`;
+        ruleta.style.transition = "transform 10s ease-in-out";
+        
+        
+        //INICIAMOS LA ANIMACIÓN
+        ruleta.classList.toggle('rotate');
+        spinning=true;
+
+        //EL ANGULO EN QUE TERMINÓ LA RULETA
+        setTimeout(function(){
+            let angle = getRotationDegrees(ruleta) %360;
+            //alert(randomAngle +": "+ (randomAngle % 360)+": "+angle);
+            anunciar_ganador(angle);
+            spinning=false
+
+        },10500);
+
+    }, 10);
+
+
+});
+
+//ENLISTAMOS LOS USUARIOS EN LA LISTA
+function enlistar_players(lista_players){
+    let lista = document.getElementById("lista");
+    lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button" class="drop-button"></li>`).join('');
+
+}
+//AGREGAMOS SUS RESPECTIVOS LISTENERS A LOS BOTONES DE CADA USUARIO EN LA LISTA
+function agregar_listeners(){
+    document.querySelector('#lista').addEventListener('click', function(event) {
+        if (event.target.classList.contains('drop-button')) {
+            let user = event.target.value;
+            console.log(user);
+            drop_user(user);
+        }
+    });
+}
+
+
+//------------------------------------------------------FEATURES ---------------------------------------------------------------
 
 function anunciar_ganador(desface){
     for(let i = players.length-1 ; i>=0; i--){
@@ -36,46 +119,15 @@ function anunciar_ganador(desface){
         //invertir angulo
         endAngle = 360 - endAngle;
 
-        //console.log("Desfase: "+desface+" Angulo"+i+": "+players[i]+": " + startAngle + " | Angulo2"+players[i]+": "+ endAngle + "");
+        console.log("Desfase: "+desface+" Angulo"+i+": "+players[i]+": " + startAngle + " | Angulo2"+players[i]+": "+ endAngle + "");
         
-        if(startAngle >= 90 && ( endAngle < 90 || startAngle-(360 / players.length) < 0  )){
+        if(startAngle >= 90 && ( endAngle < 90 || startAngle-(360 / players.length) <= 0  )){
             alert("El ganador es: " + players[i])             
         }
     }   
 }
 
-button.addEventListener("click", function(){
-    //Obtener numero aleatorio entre 0 y 360
-    ruleta.style.transform = `rotate(${0}deg)`;
-    ruleta.style.transition = "transform 1ms ease-in-out";
-    ruleta.classList.toggle('rotate');
 
-    //console.log(ruleta.style)
-
-    setTimeout(function (){
-        let randomAngle = Math.floor(Math.random() * 360);
-        //Añadirle 360 para que de una vuelta completa
-        randomAngle += 360*50;
-        
-        ruleta.style.transform = `rotate(${randomAngle}deg)`;
-        ruleta.style.transition = "transform 10s ease-in-out";
-
-        
-
-        //console.log(ruleta.style)
-        ruleta.classList.toggle('rotate');
-
-        //EL ANGULO EN QUE TERMINÓ LA RULETA
-        setTimeout(function(){
-            let angle = getRotationDegrees(ruleta) %360;
-            //alert(randomAngle +": "+ (randomAngle % 360)+": "+angle);
-            anunciar_ganador(angle);
-        },10500);
-
-    }, 10);
-
-
-});
 
 function getRotationDegrees(ruleta){
     const matrix = window.getComputedStyle(ruleta).getPropertyValue("transform")
@@ -88,15 +140,25 @@ function getRotationDegrees(ruleta){
 }
 
 function ask_players(){
-    invoke('send_players').then((message) => {
-        players = message.split('\n');
-        players.pop();
+    //VERIFICAMOS QUE NO ESTÉ GIRANDO LA RULETA
+    if (spinning == false){
+        //SI NO ESTÁ GIRANDO PODEMOS RECIBIR USUARIOS
+        invoke('send_players').then((message) => {
+            players = message.split('\n');
+            players.pop();
 
-        dividir_ruleta(players);
-        enlistar_players(players);
-    });
+            //SI LA LISTA DE USUARIOS ENTRANTE ES LA MISMA QUE LA ANTERIOR NO HACEMOS NADA
+            if(players!=last_players){    //EN CASO CONTRARIO DIBUJAMOS LA RULETA Y ENLISTAMOS LOS USUARIOS
+                dividir_ruleta(players);
+                enlistar_players(players);
+                last_players = players;
+            }
+        });
+    }
+    
 }
 
+//CADA CUANTO LE PEDIMOS A RUST QUE NOS MANDE LA LISTA DE USUARIOS EN LA DB
 setInterval(ask_players, 1000);
 
 function dividir_ruleta(players){
@@ -149,24 +211,12 @@ function dividir_ruleta(players){
     }
 }
 
-function enlistar_players(lista_players){
-    let lista = document.getElementById("lista");
-    lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button" class="drop-button"></li>`).join('');
 
-}
-function agregar_listeners(){
-    document.querySelector('#lista').addEventListener('click', function(event) {
-        if (event.target.classList.contains('drop-button')) {
-            let user = event.target.value;
-            console.log(user);
-            drop_user(user);
-        }
-    });
-}
 function drop_user(user){
     invoke('drop_player', {player: user}).then((message) => {
         console.log(message);
     });
 }
+
 
 

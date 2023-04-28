@@ -131,6 +131,22 @@ body{
 }
 
 
+#button_add{
+    background-color: #13e000;
+    border: #13e000;
+    color:white;
+    font-weight: bold;
+    width: 100%;
+}
+#input_usuario{
+    width: 100%;
+    margin-left: 15px;
+}
+#add_user{
+    margin-bottom: 25px;;
+}
+
+
 
 #lista{
     list-style-type: none;
