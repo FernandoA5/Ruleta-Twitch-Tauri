@@ -11,11 +11,12 @@ let panel_players = document.getElementById("panel_players");
 //-------------------------------------------------------COSAS DE LA VENTANA -----------------------------------------------------
 window.addEventListener("resize", function(){
     dividir_ruleta(players.length);
-
     //console.log(window.innerHeight + ":" + window.innerWidth)
-    
+    responsive();
+});
 
-    if(this.window.innerHeight >= this.window.innerWidth/1.3){
+function responsive(){
+    if(this.window.innerHeight >= this.window.innerWidth/1.535){
         panel_ruleta.className = "col-sm-6";
         panel_controles.className = "col-sm-6";
         panel_players.className = "col-md-4";
@@ -27,11 +28,11 @@ window.addEventListener("resize", function(){
         panel_players.className = "col-md-4";
         console.log("Cambiando a 5:3:4");
     }
+}
 
-
-});
 window.addEventListener("DOMContentLoaded", function(){
     //ESTE VA PRIMERO PORQUE AL INICIAR LA CONEXÍON CORRIGE EL ARCHIVO EN CASO DE SER UN CANAL INCORRECTO
+    responsive();
     invoke('start_connection_twitch').then((message =>{
         console.log(message);
     })).then(()=>{
@@ -142,6 +143,8 @@ command_button.addEventListener('click', function(){
                 });
 
             });
+        }else{
+            alert("Todo pendejo: Te falto poner el nombre del comando");
         }
 
     }
@@ -242,8 +245,8 @@ spin_button.addEventListener("click", function(){
 function enlistar_players(lista_players){
     let lista = document.getElementById("lista");
     lista.innerHTML = lista_players.map(lista_players => `<li><input type="button" value="${lista_players}" id="${lista_players}_button" class="drop-button"></li>`).join('');
-
 }
+
 //AGREGAMOS SUS RESPECTIVOS LISTENERS A LOS BOTONES DE CADA USUARIO EN LA LISTA
 function agregar_listeners(){
     document.querySelector('#lista').addEventListener('click', function(event) {
@@ -280,7 +283,7 @@ function anunciar_ganador(desface){
 }
 
 
-
+//OBTENER LA ROTACIÓN DE LA RULETA
 function getRotationDegrees(ruleta){
     const matrix = window.getComputedStyle(ruleta).getPropertyValue("transform")
     if (matrix){
@@ -313,6 +316,7 @@ function ask_players(){
 //CADA CUANTO LE PEDIMOS A RUST QUE NOS MANDE LA LISTA DE USUARIOS EN LA DB
 setInterval(ask_players, 1000);
 
+//DIBUJAR LA RULETA
 function dividir_ruleta(players){
     let ruleta = document.getElementById("ruleta");
     let canvas = document.getElementById("ruleta_canvas");
@@ -342,12 +346,14 @@ function dividir_ruleta(players){
             ctx.rotate(angle * i + angle/2);
             ctx.textAlign = "center";
 
+            //--------DISEÑO DEL TEXTO----------------
             //LO SEPARAMOS UN POCO DEL CENTRO PARA QUE NO SE SUPERPONGAN
             let text="    "+ players[i]+"   ";
             let textWidth = ctx.measureText(text).width;
             //0.7 para darle algo de holgura
             let proportion = textWidth / (width*0.65);
-            let fontSize = (width / 2) * 0.05 / proportion;
+            let vertical_proportion = 1/players.length;
+            let fontSize = ((width / 2) * 0.05 / proportion) * vertical_proportion;
 
 
             ctx.font = `${fontSize}px Arial`;
@@ -363,7 +369,7 @@ function dividir_ruleta(players){
     }
 }
 
-
+//ELIMINAR AL USUARIO DE LA DB
 function drop_user(user){
     invoke('drop_player', {player: user}).then((message) => {
         console.log(message);

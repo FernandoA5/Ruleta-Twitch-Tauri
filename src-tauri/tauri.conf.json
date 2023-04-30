@@ -7,8 +7,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "ruleta_twitch_rs_tauri",
-    "version": "0.0.0"
+    "productName": "Ruleta Twitch",
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -48,7 +48,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "ruleta_twitch_rs_tauri",
+        "title": "Ruleta Twitch",
         "width": 800,
         "height": 600
       }

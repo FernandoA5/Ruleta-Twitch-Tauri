@@ -3,6 +3,7 @@ use std::fs::OpenOptions;
 use std::io::prelude::*;
 use std::io::BufReader;
 
+
 #[derive(Clone, Debug)]
 pub struct Channel{
     file: String,
