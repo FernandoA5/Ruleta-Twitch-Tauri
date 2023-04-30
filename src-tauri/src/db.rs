@@ -10,7 +10,7 @@ pub struct Db{
     pub players: Vec<String>,
 }
 
-const PATH: &str = "../db.txt";
+const PATH: &str = "../db.md";
 
 impl Db {
     pub fn leer_db(&mut self){
@@ -92,6 +92,16 @@ impl Db {
         //Reescribimos todos los usuarios
         for player in &self.players{
             self.add_player(player.clone());
+        }
+    }
+    pub fn clear_players(&mut self){
+        //Vaciamos el vector de players
+        self.players.clear();
+
+        //Reiniciamos el archivo de la DB
+        match File::create(PATH){
+            Ok(_) => println!("El archivo se reinició correctamente"),
+            Err(e) => eprintln!("Error al crear el archivo: {}", e)
         }
     }
 }
