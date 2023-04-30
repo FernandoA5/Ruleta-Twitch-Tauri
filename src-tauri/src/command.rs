@@ -9,7 +9,7 @@ pub struct Command{
     content: String,
 }
 
-const PATH: &str = "../command.md";
+const PATH: &str = "/command.md";
 
 impl Command{
     pub fn leer_db(&mut self){

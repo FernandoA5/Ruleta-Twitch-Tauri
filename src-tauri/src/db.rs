@@ -10,7 +10,7 @@ pub struct Db{
     pub players: Vec<String>,
 }
 
-const PATH: &str = "../db.md";
+const PATH: &str = "/db.md";
 
 impl Db {
     pub fn leer_db(&mut self){

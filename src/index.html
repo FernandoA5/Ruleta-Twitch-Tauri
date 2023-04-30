@@ -24,7 +24,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5" id="panel_ruleta">
 
           <div class="card card-primary" id="card_ruleta">
             <div class="card-header">
@@ -43,7 +43,7 @@
 
 
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3" id="panel_controles">
           <div class="card card-primary" id="card_ruleta">
             <div class="card-header" >
               <h3 style="font-weight: bold;">Controles</h3>
@@ -52,13 +52,20 @@
             <div class="card-body" id="controles">       
               <input type="button" value="GIRAR!" id="spin_button"/>
               <input type="button" value="LIMPIAR" id="clear_button">
+
+              <input type="text" name="input_canal" id="input_canal" placeholder="Canal">
+              <input type="button" value="CANAL" id="button_canal">
+
+              <input type="text" name="input_comando" id="input_comando" placeholder="Comando">
+              <input type="button" value="SET" id="button_comando">
+
             </div>
 
           </div>
         </div>
 
 
-        <div class="col-md-4">
+        <div class="col-md-4" id="panel_players">
           <div class="card card-primary" id="card_ruleta">
             <div class="card-header" >
               <h3 style="font-weight: bold;">Participantes</h3>
@@ -66,7 +73,7 @@
             <div class="card-body" id="players">   
               <div class="row" id="add_user">
                 <div class="col-sm-8">
-                  <input type="text" name="input_usuario" id="input_usuario">    
+                  <input type="text" name="input_usuario" id="input_usuario" placeholder="Agregar">    
                 </div>  
                 <div class="col-sm-4">
                   <input type="button" value="+" id="button_add">

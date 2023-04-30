@@ -9,7 +9,7 @@ pub struct Channel{
     content: String,
 }
 
-const PATH: &str = "../channel.md";
+const PATH: &str = "/channel.md";
 
 impl Channel{
     pub fn leer_db(&mut self){

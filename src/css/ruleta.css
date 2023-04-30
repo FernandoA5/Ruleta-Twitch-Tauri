@@ -98,6 +98,7 @@ body{
     font-weight: bold;
     margin: 2px;
     border-radius: 20px;
+    font-size: 15px;
 }
 #lista{
     padding-top: 10px;
@@ -128,6 +129,7 @@ body{
     margin: 2px;
     margin-top: 4px;
     border-radius: 20px;
+    font-size: 15px;
 }
 
 
@@ -137,10 +139,12 @@ body{
     color:white;
     font-weight: bold;
     width: 100%;
+    border-radius: 20px;
 }
 #input_usuario{
     width: 100%;
     margin-left: 15px;
+    text-align: center;
 }
 #add_user{
     margin-bottom: 25px;;
@@ -185,3 +189,39 @@ body{
     left: 50%;
     transform: translateX(-50%);
   }
+
+
+
+#input_canal{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+#button_canal{
+    background-color: #ab0edb;
+    border: #ab0edb;
+    color:white;
+    font-weight: bold;
+    width: 100%;
+    margin: 2px;
+    margin-top: 4px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+#input_comando{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+#button_comando{
+    background-color: #ab0edb;
+    border: #ab0edb;
+    color:white;
+    font-weight: bold;
+    width: 100%;
+    margin: 2px;
+    margin-top: 4px;
+    border-radius: 20px;
+    font-size: 15px;
+}
