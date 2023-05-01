@@ -1,6 +1,6 @@
-# Tauri + Vanilla
+# Tauri App + Vanilla
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
+Aplicación de escritorio de una ruleta aleatoria que se conecta con el chat de un canal de twitch y permite definir un comando que será detectado para agregar a los espectadores a la lista de participantes de la ruleta.
 
 ## Recommended IDE Setup
 
